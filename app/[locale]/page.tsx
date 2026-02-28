@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { formatNumber } from "@/lib/utils";
+import AdUnit from "@/components/ad-unit";
 
 export const metadata: Metadata = {
   title: "Bus Routes",
@@ -58,6 +59,11 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Ad Unit after hero */}
+      <div className="container mx-auto px-4 sm:px-6 pt-3">
+        <AdUnit className="bg-muted/30 rounded-lg overflow-hidden min-h-[100px] flex items-center justify-center" />
+      </div>
 
       <Separator />
 
