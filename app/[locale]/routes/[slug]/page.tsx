@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import RouteHero from "@/components/route-hero";
 import StopTimeline from "@/components/stop-timeline";
 import FareCalculator from "@/components/fare-calculator";
-import AdUnit from "@/components/ad-unit";
+import AdBlock from "@/components/ad-block";
 
 export function generateStaticParams() {
   return getAllRoutes().map((route) => ({
@@ -41,7 +41,7 @@ export default async function RouteDetailPage({
     <main className="min-h-screen">
       <RouteHero route={route} />
       <div className="container mx-auto px-4 sm:px-6 pt-6">
-        <AdUnit className="bg-muted/30 rounded-lg overflow-hidden min-h-[100px] flex items-center justify-center" />
+        <AdBlock className="bg-muted/30 rounded-lg overflow-hidden min-h-[100px] flex items-center justify-center" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 py-10">
