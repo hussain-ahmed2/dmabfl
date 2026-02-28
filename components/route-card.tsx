@@ -1,19 +1,29 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { MapPin, ArrowRight, Navigation } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { Route } from "@/types";
 import { routeToSlug, calculateFare } from "@/lib/busData";
+import { useTranslations, useLocale } from "next-intl";
 
 interface RouteCardProps {
   route: Route;
 }
 
 export default function RouteCard({ route }: RouteCardProps) {
+  const t = useTranslations("Route");
+  const locale = useLocale();
+
   const slug = routeToSlug(route);
   const totalDistance = route.stops.at(-1)?.distance ?? 0;
-  const startStop = route.stops.at(0)?.name.en ?? "";
-  const endStop = route.stops.at(-1)?.name.en ?? "";
+  const startStop =
+    locale === "en"
+      ? (route.stops.at(0)?.name.en ?? "")
+      : (route.stops.at(0)?.name.bn ?? "");
+  const endStop =
+    locale === "en"
+      ? (route.stops.at(-1)?.name.en ?? "")
+      : (route.stops.at(-1)?.name.bn ?? "");
   const maxFare = calculateFare(totalDistance);
 
   return (
@@ -25,12 +35,12 @@ export default function RouteCard({ route }: RouteCardProps) {
               variant="secondary"
               className="text-xs font-bold tracking-wide"
             >
-              {route.code.en}
+              {locale === "en" ? route.code.en : route.code.bn}
             </Badge>
             <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary shrink-0" />
           </div>
           <p className="text-sm font-semibold leading-snug text-foreground line-clamp-2 pt-1">
-            {route.name.en}
+            {locale === "en" ? route.name.en : route.name.bn}
           </p>
         </CardHeader>
 
@@ -55,18 +65,18 @@ export default function RouteCard({ route }: RouteCardProps) {
                 <span className="font-semibold text-foreground">
                   {route.stops.length}
                 </span>{" "}
-                stops
+                {t("stops")}
               </span>
               <span>·</span>
               <span>
                 <span className="font-semibold text-foreground">
                   {totalDistance}
                 </span>{" "}
-                km
+                {t("km")}
               </span>
             </div>
             <span className="text-xs font-semibold text-primary">
-              up to ৳{maxFare}
+              {t("upTo", { maxFare })}
             </span>
           </div>
         </CardContent>

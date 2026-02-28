@@ -1,44 +1,33 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useStore, type FareSettings } from "./store";
 
-export interface FareSettings {
-  minFare: number;
-  farePerKm: number;
-}
-
-const DEFAULTS: FareSettings = { minFare: 10, farePerKm: 2.15 };
-const STORAGE_KEY = "dmabfl_fare_settings";
+export type { FareSettings };
 
 export function useFareSettings() {
-  const [settings, setSettings] = useState<FareSettings>(DEFAULTS);
+  const storeSettings = useStore((state) => state.settings);
+  const setSettings = useStore((state) => state.setSettings);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored) as FareSettings;
-        if (parsed.minFare && parsed.farePerKm) setSettings(parsed);
-      }
-    } catch {}
     setLoaded(true);
   }, []);
 
-  const updateSettings = useCallback((s: FareSettings) => {
-    setSettings(s);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
-    } catch {}
-  }, []);
+  const updateSettings = useCallback(
+    (s: FareSettings) => {
+      setSettings(s);
+    },
+    [setSettings]
+  );
 
   const calcFare = useCallback(
     (distanceKm: number): number => {
-      const raw = distanceKm * settings.farePerKm;
-      return Math.max(settings.minFare, Math.ceil(raw / 5) * 5);
+      const raw = distanceKm * storeSettings.farePerKm;
+      return Math.max(storeSettings.minFare, Math.ceil(raw / 5) * 5);
     },
-    [settings]
+    [storeSettings]
   );
 
-  return { settings, updateSettings, calcFare, loaded };
+  return { settings: storeSettings, updateSettings, calcFare, loaded };
 }

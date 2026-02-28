@@ -1,0 +1,101 @@
+{
+  "Home": {
+    "title": "Find Your Bus Route &",
+    "titleHighlight": "Calculate Fares",
+    "subtitle": "Browse {totalRoutes} official bus routes across Dhaka Metro Area. View stops, distances, and get instant fare estimates.",
+    "routesBadge": "🚌 Dhaka Metro Area",
+    "searchPlaceholder": "Search routes by code or origin/destination...",
+    "totalRoutes": "Routes",
+    "totalStops": "Unique Stops",
+    "minFareLabel": "Min Fare",
+    "minFare": "৳10+",
+    "noRoutes": "No routes found. Try a different search."
+  },
+  "Navbar": {
+    "brandTitle": "Dhaka Bus",
+    "brandSubtitle": "Fare & Routes",
+    "navRoutes": "Routes",
+    "navCalculator": "Fare Calculator",
+    "navChart": "Fare Chart",
+    "navAbout": "About",
+    "navMobileCalc": "Calc",
+    "navMobileChart": "Chart"
+  },
+  "Calculator": {
+    "badge": "🧮 Fare Calculator",
+    "title": "Calculate Your Bus Fare",
+    "subtitle": "Find direct routes between any two stops and get instant fare estimates.",
+    "journeyDetails": "Journey Details",
+    "journeySelect": "Select your stops to find routes.",
+    "routeOp": "Route (Optional)",
+    "allRoutes": "All Routes",
+    "selectFrom": "Select From",
+    "selectTo": "Select To",
+    "boardingStop": "Select boarding stop",
+    "destinationStop": "Select destination stop",
+    "calcButton": "Calculate Fare",
+    "resultsTitle": "Fare Results",
+    "resultsFound": "Found {count} routes",
+    "resultsEmpty": "Enter your journey details to see results.",
+    "noDirectRoutes": "No direct routes found between these two stops.",
+    "tryDifferent": "Try selecting \"All Routes\" or different stops.",
+    "resultsWillAppear": "Results will appear here once you calculate your fare."
+  },
+  "RouteCalc": {
+    "title": "🧮 Fare Calculator",
+    "desc": "Select boarding and alighting stops to estimate fare.",
+    "from": "From",
+    "to": "To",
+    "boardingStop": "Select boarding stop",
+    "alightingStop": "Select alighting stop",
+    "estimatedFare": "Estimated Fare",
+    "selectDifferent": "Select two different stops",
+    "ratesNote": "Rates: ৳{rate}/km · Min ৳{minFare} · Rounded to nearest ৳5.",
+    "actualNote": "Actual fares may vary.",
+    "fareFromFirst": "Fare from First Stop",
+    "start": "Start",
+    "km": "km"
+  },
+  "Settings": {
+    "dialogTitle": "Fare Configuration",
+    "dialogDesc": "Customize the fare rate used across all calculations. Changes are saved to your browser.",
+    "minFare": "Minimum Fare (TK)",
+    "farePerKm": "Fare Per KM (TK)",
+    "current": "Current: ৳{rate}/km · Min ৳{min}",
+    "rounded": "Fares are rounded up to the nearest ৳5.",
+    "cancel": "Cancel",
+    "save": "Save Settings"
+  },
+  "Chart": {
+    "badge": "📊 Fare Chart",
+    "title": "Full Route Fare Chart",
+    "subtitle": "View the complete fare matrix for all stops on a selected route.",
+    "selectRoute": "Select Route for Chart",
+    "chooseRouteDesc": "Choose a route to see the fare between every combination of stops."
+  },
+  "About": {
+    "title": "About This Project",
+    "subtitle": "Dhaka Bus Fare & Routes is an open-source initiative to make public transit information accessible and structured.",
+    "featuresTitle": "Core Features",
+    "sourceTitle": "Data Source",
+    "sourceDesc": "The route and distance data is maintained collaboratively in a public GitHub repository. You are welcome to contribute updates or corrections.",
+    "viewGithub": "View Data Repository",
+    "f1Title": "Comprehensive Routes",
+    "f1Desc": "Covering hundreds of official and unofficial bus routes operating in Dhaka.",
+    "f2Title": "Accurate Fares",
+    "f2Desc": "Fare estimation based on exact km distance between stops according to official BRTA rates.",
+    "f3Title": "Open Source",
+    "f3Desc": "Data and code are open for the community to improve and build upon."
+  },
+  "Route": {
+    "back": "Back to Routes",
+    "stops": "stops",
+    "totalDist": "Total Distance",
+    "routeDetails": "Route Details",
+    "via": "via",
+    "viewChart": "View Chart",
+    "km": "km",
+    "upTo": "up to ৳{maxFare}",
+    "searchStops": "Search stops..."
+  }
+}

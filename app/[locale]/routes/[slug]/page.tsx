@@ -14,13 +14,15 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const route = getRouteBySlug(slug);
   if (!route) return { title: "Route Not Found" };
+  const routeName = locale === "bn" ? route.name.bn : route.name.en;
+  const routeCode = locale === "bn" ? route.code.bn : route.code.en;
   return {
-    title: `${route.code.en} – ${route.name.en}`,
+    title: `${routeCode} – ${routeName}`,
     description: `${route.stops.length} stops · ${route.stops.at(-1)?.distance ?? 0} km · Bus route in Dhaka Metro Area.`,
   };
 }
@@ -28,7 +30,7 @@ export async function generateMetadata({
 export default async function RouteDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) {
   const { slug } = await params;
   const route = getRouteBySlug(slug);
@@ -38,7 +40,7 @@ export default async function RouteDetailPage({
     <main className="min-h-screen">
       <RouteHero route={route} />
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+      <div className="container mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Stop timeline – takes up wider left column */}
           <div className="lg:col-span-3">

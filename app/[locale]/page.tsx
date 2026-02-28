@@ -2,6 +2,7 @@ import { getAllRoutes, getTotalUniqueStops } from "@/lib/busData";
 import RouteGrid from "@/components/route-grid";
 import { Separator } from "@/components/ui/separator";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   title: "Bus Routes",
@@ -9,15 +10,16 @@ export const metadata: Metadata = {
     "Browse all Dhaka Metro Area bus routes, stops, distances and fares.",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
   const routes = getAllRoutes();
   const totalRoutes = routes.length;
   const totalStops = getTotalUniqueStops();
+  const t = await getTranslations("Home");
 
   return (
     <main className="min-h-screen">
       {/* ── Hero ────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-linear-to-br from-primary/90 via-primary to-primary/70 text-primary-foreground py-20 px-4 sm:px-6">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/90 via-primary to-primary/70 text-primary-foreground py-20 px-4 sm:px-6">
         {/* Decorative blur blobs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -top-32 -right-32 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
@@ -26,27 +28,25 @@ export default function HomePage() {
 
         <div className="relative mx-auto max-w-3xl text-center space-y-5">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur-sm">
-            🚌 Dhaka Metro Area
+            {t("routesBadge")}
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-            Find Your Bus Route &{" "}
+            {t("title")}{" "}
             <span className="underline decoration-wavy decoration-primary-foreground/40 underline-offset-4">
-              Calculate Fares
+              {t("titleHighlight")}
             </span>
           </h1>
           <p className="text-base sm:text-lg text-primary-foreground/80 max-w-xl mx-auto leading-relaxed">
-            Browse <strong>{totalRoutes}</strong> official bus routes across
-            Dhaka Metro Area. View stops, distances, and get instant fare
-            estimates.
+            {t("subtitle", { totalRoutes })}
           </p>
 
           {/* Stats strip */}
           <div className="flex flex-wrap items-center justify-center gap-6 pt-4">
-            <Stat value={totalRoutes} label="Routes" />
+            <Stat value={totalRoutes} label={t("totalRoutes")} />
             <div className="h-8 w-px bg-primary-foreground/20" />
-            <Stat value={totalStops} label="Unique Stops" />
+            <Stat value={totalStops} label={t("totalStops")} />
             <div className="h-8 w-px bg-primary-foreground/20" />
-            <Stat value="৳10+" label="Min Fare" />
+            <Stat value={t("minFare")} label={t("minFareLabel")} />
           </div>
         </div>
       </section>
@@ -54,7 +54,7 @@ export default function HomePage() {
       <Separator />
 
       {/* ── Route Grid ─────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-6 py-10">
+      <section className="container mx-auto px-4 sm:px-6 py-10">
         <RouteGrid initialRoutes={routes} />
       </section>
     </main>

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Route } from "@/types";
 import { cn } from "@/lib/utils";
+import { useTranslations, useLocale } from "next-intl";
 
 interface StopTimelineProps {
   route: Route;
@@ -8,14 +9,16 @@ interface StopTimelineProps {
 
 export default function StopTimeline({ route }: StopTimelineProps) {
   const stops = route.stops;
+  const t = useTranslations("Route");
+  const locale = useLocale();
 
   return (
     <Card>
       <CardHeader className="pb-4">
         <CardTitle className="text-base flex items-center gap-2">
-          🗺️ Route Stops
+          🗺️ {t("routeDetails")}
           <span className="text-xs font-normal text-muted-foreground">
-            ({stops.length} stops)
+            ({stops.length} {t("stops")})
           </span>
         </CardTitle>
       </CardHeader>
@@ -58,19 +61,19 @@ export default function StopTimeline({ route }: StopTimelineProps) {
                           (isFirst || isLast) && "font-semibold",
                         )}
                       >
-                        {stop.name.en}
+                        {locale === "en" ? stop.name.en : stop.name.bn}
                       </p>
                       <p className="text-xs text-muted-foreground mt-0.5">
-                        {stop.name.bn}
+                        {locale === "en" ? stop.name.bn : stop.name.en}
                       </p>
                     </div>
                     <div className="text-right shrink-0">
                       <span className="text-xs font-semibold text-foreground">
-                        {stop.distance} km
+                        {stop.distance} {t("km")}
                       </span>
                       {segDist && (
                         <p className="text-[10px] text-muted-foreground">
-                          +{segDist} km
+                          +{segDist} {t("km")}
                         </p>
                       )}
                     </div>

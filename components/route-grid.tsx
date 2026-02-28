@@ -8,6 +8,7 @@ import RouteCard from "@/components/route-card";
 import SearchBar from "@/components/search-bar";
 import { searchRoutes } from "@/lib/busData";
 import type { Route } from "@/types";
+import { useTranslations } from "next-intl";
 
 interface RouteGridProps {
   initialRoutes: Route[];
@@ -15,6 +16,7 @@ interface RouteGridProps {
 
 export default function RouteGrid({ initialRoutes }: RouteGridProps) {
   const [query, setQuery] = useState("");
+  const t = useTranslations("Home");
 
   const handleSearch = useCallback((q: string) => setQuery(q), []);
 
@@ -25,10 +27,7 @@ export default function RouteGrid({ initialRoutes }: RouteGridProps) {
   return (
     <div className="space-y-8">
       {/* Search */}
-      <SearchBar
-        onSearch={handleSearch}
-        placeholder="Search by route code, name, or stop (e.g. A-101, Farmgate)"
-      />
+      <SearchBar onSearch={handleSearch} placeholder={t("searchPlaceholder")} />
 
       {/* Results label */}
       <div className="flex items-center justify-between">
@@ -83,14 +82,14 @@ export default function RouteGrid({ initialRoutes }: RouteGridProps) {
               <Bus className="h-8 w-8 text-muted-foreground" />
             </div>
             <div>
-              <p className="font-semibold text-foreground">No routes found</p>
+              <p className="font-semibold text-foreground">{t("noRoutes")}</p>
               <p className="text-sm text-muted-foreground mt-1">
                 Try searching by route code like &quot;A-101&quot; or a stop
                 like &quot;Mirpur-10&quot;
               </p>
             </div>
             <Button variant="outline" size="sm" onClick={() => setQuery("")}>
-              Show all routes
+              {t("browseAll")}
             </Button>
           </motion.div>
         )}

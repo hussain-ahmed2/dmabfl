@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { FareSettings } from "@/hooks/use-fare-settings";
+import { useTranslations } from "next-intl";
 
 interface FareSettingsDialogProps {
   settings: FareSettings;
@@ -23,6 +24,7 @@ export default function FareSettingsDialog({
   settings,
   onSave,
 }: FareSettingsDialogProps) {
+  const t = useTranslations("Settings");
   const [open, setOpen] = useState(false);
   const [minFare, setMinFare] = useState(String(settings.minFare));
   const [farePerKm, setFarePerKm] = useState(String(settings.farePerKm));
@@ -59,12 +61,9 @@ export default function FareSettingsDialog({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Settings className="h-4 w-4 text-primary" />
-              Fare Configuration
+              {t("dialogTitle")}
             </DialogTitle>
-            <DialogDescription>
-              Customize the fare rate used across all calculations. Changes are
-              saved to your browser.
-            </DialogDescription>
+            <DialogDescription>{t("dialogDesc")}</DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4 pt-2">
@@ -73,7 +72,7 @@ export default function FareSettingsDialog({
                 htmlFor="min-fare"
                 className="text-xs uppercase tracking-wider text-muted-foreground"
               >
-                Minimum Fare (TK)
+                {t("minFare")}
               </Label>
               <Input
                 id="min-fare"
@@ -91,7 +90,7 @@ export default function FareSettingsDialog({
                 htmlFor="fare-per-km"
                 className="text-xs uppercase tracking-wider text-muted-foreground"
               >
-                Fare Per KM (TK)
+                {t("farePerKm")}
               </Label>
               <Input
                 id="fare-per-km"
@@ -106,9 +105,12 @@ export default function FareSettingsDialog({
 
             <div className="rounded-lg bg-muted/50 border border-border px-3 py-2.5 text-xs text-muted-foreground space-y-0.5">
               <p>
-                Current: ৳{settings.farePerKm}/km · Min ৳{settings.minFare}
+                {t("current", {
+                  rate: settings.farePerKm,
+                  min: settings.minFare,
+                })}
               </p>
-              <p>Fares are rounded up to the nearest ৳5.</p>
+              <p>{t("rounded")}</p>
             </div>
 
             <div className="flex gap-2 pt-1">
@@ -117,10 +119,10 @@ export default function FareSettingsDialog({
                 className="flex-1"
                 onClick={() => setOpen(false)}
               >
-                Cancel
+                {t("cancel")}
               </Button>
               <Button className="flex-1" onClick={handleSave}>
-                Save Settings
+                {t("save")}
               </Button>
             </div>
           </div>
