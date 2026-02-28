@@ -44,11 +44,14 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="google-adsense-account" content="ca-pub-3448314338744263" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3448314338744263"
-          crossOrigin="anonymous"
-        ></script>
+        {/* Only load AdSense in production to avoid distracting errors in local development */}
+        {process.env.NODE_ENV === "production" && (
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3448314338744263"
+            crossOrigin="anonymous"
+          />
+        )}
       </head>
       <body
         className={cn(
