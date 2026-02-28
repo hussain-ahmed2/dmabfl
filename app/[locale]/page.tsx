@@ -71,6 +71,14 @@ export default async function HomePage() {
       <section className="container mx-auto px-4 sm:px-6 py-10">
         <RouteGrid initialRoutes={routes} />
       </section>
+
+      {/* Multiplex Ad at bottom */}
+      <section className="container mx-auto px-4 sm:px-6 pb-20">
+        <AdBlock
+          variant="multiplex"
+          className="rounded-xl overflow-hidden border border-border/50 bg-muted/5 p-4"
+        />
+      </section>
     </main>
   );
 }

@@ -9,6 +9,22 @@ const AdUnitComponent = dynamic(() => import("./ad-unit"), {
   ),
 });
 
-export default function AdBlock({ className }: { className?: string }) {
+const MultiplexComponent = dynamic(() => import("./multiplex-ad"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full min-h-[500px] bg-muted/10 animate-pulse rounded-lg" />
+  ),
+});
+
+export default function AdBlock({
+  className,
+  variant = "display",
+}: {
+  className?: string;
+  variant?: "display" | "multiplex";
+}) {
+  if (variant === "multiplex") {
+    return <MultiplexComponent className={className} />;
+  }
   return <AdUnitComponent className={className} />;
 }

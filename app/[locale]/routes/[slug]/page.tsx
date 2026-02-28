@@ -59,6 +59,12 @@ export default async function RouteDetailPage({
           </div>
         </div>
       </div>
+      <div className="container mx-auto px-4 sm:px-6 pb-20 mt-10">
+        <AdBlock
+          variant="multiplex"
+          className="rounded-xl overflow-hidden border border-border/50 bg-muted/5 p-4"
+        />
+      </div>
     </main>
   );
 }
