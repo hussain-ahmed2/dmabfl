@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
@@ -42,6 +43,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3448314338744263"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body
         className={cn(
           `text-sm antialiased min-h-screen bg-background text-foreground tracking-tight selection:bg-primary/20`,
