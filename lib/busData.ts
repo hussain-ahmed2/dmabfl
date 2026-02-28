@@ -28,7 +28,7 @@ export function searchRoutes(query: string): Route[] {
 }
 
 // ─── Fare Logic ─────────────────────────────────────────
-const FARE_PER_KM = 2.15; // BDT per km
+const FARE_PER_KM = 2.45; // BDT per km
 const MIN_FARE = 10; // BDT
 
 export function calculateFare(distanceKm: number): number {

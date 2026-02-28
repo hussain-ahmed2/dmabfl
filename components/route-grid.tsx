@@ -8,7 +8,8 @@ import RouteCard from "@/components/route-card";
 import SearchBar from "@/components/search-bar";
 import { searchRoutes } from "@/lib/busData";
 import type { Route } from "@/types";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { formatNumber } from "@/lib/utils";
 
 interface RouteGridProps {
   initialRoutes: Route[];
@@ -17,6 +18,7 @@ interface RouteGridProps {
 export default function RouteGrid({ initialRoutes }: RouteGridProps) {
   const [query, setQuery] = useState("");
   const t = useTranslations("Home");
+  const locale = useLocale();
 
   const handleSearch = useCallback((q: string) => setQuery(q), []);
 
@@ -35,17 +37,17 @@ export default function RouteGrid({ initialRoutes }: RouteGridProps) {
           {query ? (
             <>
               <span className="font-semibold text-foreground">
-                {filtered.length}
+                {formatNumber(filtered.length, locale)}
               </span>{" "}
-              result{filtered.length !== 1 ? "s" : ""} for &quot;{query}&quot;
+              {t("resultsFoundCount", { count: filtered.length, query })}
             </>
           ) : (
             <>
-              Showing all{" "}
+              {t("showingAll")}{" "}
               <span className="font-semibold text-foreground">
-                {filtered.length}
+                {formatNumber(filtered.length, locale)}
               </span>{" "}
-              routes
+              {t("routes")}
             </>
           )}
         </p>
@@ -65,6 +67,7 @@ export default function RouteGrid({ initialRoutes }: RouteGridProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25, delay: i * 0.03 }}
+                className="flex flex-col"
               >
                 <RouteCard route={route} />
               </motion.div>
@@ -84,8 +87,7 @@ export default function RouteGrid({ initialRoutes }: RouteGridProps) {
             <div>
               <p className="font-semibold text-foreground">{t("noRoutes")}</p>
               <p className="text-sm text-muted-foreground mt-1">
-                Try searching by route code like &quot;A-101&quot; or a stop
-                like &quot;Mirpur-10&quot;
+                {t("noRoutesAdvice")}
               </p>
             </div>
             <Button variant="outline" size="sm" onClick={() => setQuery("")}>

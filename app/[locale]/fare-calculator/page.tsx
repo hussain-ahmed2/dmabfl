@@ -23,6 +23,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { getAllRoutes, routeToSlug } from "@/lib/busData";
 import { useStore } from "@/hooks/store";
 import type { Route, Stop } from "@/types";
+import { formatNumber } from "@/lib/utils";
 
 const routes = getAllRoutes();
 
@@ -142,7 +143,7 @@ export default function FareCalculatorPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/90 via-primary to-primary/60 text-primary-foreground py-16 px-4 sm:px-6">
+      <section className="relative overflow-hidden bg-linear-to-br from-primary/90 via-primary to-primary/60 text-primary-foreground py-16 px-4 sm:px-6">
         <div className="relative container mx-auto text-center space-y-4">
           <div className="flex items-center justify-center gap-4 mb-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur-sm">
@@ -231,7 +232,7 @@ export default function FareCalculatorPage() {
                   </Select>
                 </div>
 
-                <div className="flex justify-center -my-6 relative z-10">
+                <div className="flex justify-center relative z-10">
                   <Button
                     variant="outline"
                     size="icon"
@@ -292,7 +293,9 @@ export default function FareCalculatorPage() {
             </h2>
             <p className="text-muted-foreground">
               {hasCalculated
-                ? t("resultsFound", { count: matchedRoutesData.length })
+                ? t("resultsFound", {
+                    count: formatNumber(matchedRoutesData.length, locale),
+                  })
                 : t("resultsEmpty")}
             </p>
           </div>
@@ -342,10 +345,10 @@ export default function FareCalculatorPage() {
                           </div>
                           <div className="text-left sm:text-right shrink-0">
                             <div className="text-2xl font-extrabold text-foreground leading-none">
-                              ৳{data.fare}
+                              ৳{formatNumber(data.fare, locale)}
                             </div>
                             <div className="text-sm text-muted-foreground font-medium mt-1">
-                              {data.distance} km
+                              {formatNumber(data.distance, locale)} km
                             </div>
                           </div>
                         </div>

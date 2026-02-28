@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Link } from "@/i18n/routing";
-import { Bus, MapPin, Calculator, Github } from "lucide-react";
+import {
+  Bus,
+  MapPin,
+  Calculator,
+  Github,
+  Map,
+  Search,
+  Smartphone,
+  Zap,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getAllRoutes, getTotalUniqueStops } from "@/lib/busData";
@@ -16,24 +25,24 @@ export default function AboutPage() {
 
   const features = [
     {
-      icon: "🗺️",
+      icon: <Map className="h-6 w-6 text-primary" />,
       title: "Browse All Routes",
       description: `Explore all ${totalRoutes} official Dhaka Metro Area bus routes with full stop details.`,
     },
     {
-      icon: "🧮",
+      icon: <Calculator className="h-6 w-6 text-primary" />,
       title: "Fare Estimation",
       description:
         "Get instant fare estimates between any two stops on a route based on distance.",
     },
     {
-      icon: "🔍",
+      icon: <Search className="h-6 w-6 text-primary" />,
       title: "Smart Search",
       description:
         "Search routes by code, name, or any stop name to quickly find what you need.",
     },
     {
-      icon: "📱",
+      icon: <Smartphone className="h-6 w-6 text-primary" />,
       title: "Mobile Friendly",
       description:
         "Fully responsive design that works great on phones, tablets, and desktops.",
@@ -43,7 +52,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/90 via-primary to-primary/60 text-primary-foreground py-16 px-4 sm:px-6">
+      <section className="relative overflow-hidden bg-linear-to-br from-primary/90 via-primary to-primary/60 text-primary-foreground py-16 px-4 sm:px-6">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
         </div>
@@ -81,7 +90,7 @@ export default function AboutPage() {
               label: "Min Fare",
             },
             {
-              icon: <span className="text-xl">⚡</span>,
+              icon: <Zap className="h-5 w-5 text-primary" />,
               value: "Free",
               label: "Always",
             },
@@ -107,7 +116,7 @@ export default function AboutPage() {
             {features.map((f) => (
               <Card key={f.title}>
                 <CardContent className="pt-5 pb-5 flex gap-4">
-                  <span className="text-2xl shrink-0">{f.icon}</span>
+                  <span className="shrink-0">{f.icon}</span>
                   <div>
                     <p className="font-semibold text-sm">{f.title}</p>
                     <p className="text-sm text-muted-foreground mt-0.5 leading-relaxed">
@@ -135,7 +144,7 @@ export default function AboutPage() {
             >
               imamhossain94/dhaka-metro-area-bus-fare-list
             </a>{" "}
-            on GitHub. Fare rates are estimated at ৳2.15/km with a minimum fare
+            on GitHub. Fare rates are estimated at ৳2.45/km with a minimum fare
             of ৳10, rounded to the nearest ৳5.
           </p>
           <Button variant="outline" size="sm" asChild>

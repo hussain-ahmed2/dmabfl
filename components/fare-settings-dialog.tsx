@@ -13,7 +13,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import type { FareSettings } from "@/hooks/use-fare-settings";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { formatNumber } from "@/lib/utils";
 
 interface FareSettingsDialogProps {
   settings: FareSettings;
@@ -25,6 +26,7 @@ export default function FareSettingsDialog({
   onSave,
 }: FareSettingsDialogProps) {
   const t = useTranslations("Settings");
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const [minFare, setMinFare] = useState(String(settings.minFare));
   const [farePerKm, setFarePerKm] = useState(String(settings.farePerKm));
@@ -106,8 +108,8 @@ export default function FareSettingsDialog({
             <div className="rounded-lg bg-muted/50 border border-border px-3 py-2.5 text-xs text-muted-foreground space-y-0.5">
               <p>
                 {t("current", {
-                  rate: settings.farePerKm,
-                  min: settings.minFare,
+                  rate: formatNumber(settings.farePerKm, locale),
+                  min: formatNumber(settings.minFare, locale),
                 })}
               </p>
               <p>{t("rounded")}</p>

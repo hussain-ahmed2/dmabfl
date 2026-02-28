@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -11,6 +12,11 @@ import { cn } from "@/lib/utils";
 const fontSans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
+});
+
+const fontBengali = Noto_Sans_Bengali({
+  variable: "--font-bengali",
+  subsets: ["bengali"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +33,7 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as "en" | "bn")) {
     notFound();
   }
 
@@ -38,13 +44,14 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body
         className={cn(
-          `antialiased min-h-screen bg-background text-foreground tracking-tight selection:bg-primary/20`,
-          fontSans.className,
+          `text-sm antialiased min-h-screen bg-background text-foreground tracking-tight selection:bg-primary/20`,
+          locale === "bn" ? fontBengali.className : fontSans.className,
         )}
       >
         <NextIntlClientProvider messages={messages}>
           <Navbar />
           {children}
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

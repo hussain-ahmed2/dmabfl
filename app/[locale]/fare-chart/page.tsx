@@ -20,6 +20,7 @@ import { getAllRoutes, routeToSlug } from "@/lib/busData";
 import { useFareSettings } from "@/hooks/use-fare-settings";
 import type { Route } from "@/types";
 import { useTranslations, useLocale } from "next-intl";
+import { formatNumber } from "@/lib/utils";
 
 const routes = getAllRoutes();
 
@@ -49,8 +50,8 @@ export default function FareChartPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-full px-4 sm:px-6 py-10 overflow-x-auto">
-        <Card className="container mx-auto border-none shadow-none bg-transparent">
+      <section className="mx-auto max-w-full px-4 sm:px-6 py-10">
+        <Card className="container mx-auto border-transparent ring-0 shadow-none bg-transparent">
           <CardHeader className="px-0">
             <CardTitle className="flex items-center gap-2">
               <Table className="h-5 w-5 text-primary" />
@@ -80,7 +81,7 @@ export default function FareChartPage() {
             </div>
 
             {selectedRoute && loaded && (
-              <div className="overflow-x-auto flex border rounded-lg bg-card text-card-foreground shadow-sm">
+              <div className="w-full overflow-x-auto border rounded-lg bg-card text-card-foreground shadow-sm">
                 <table className="w-full text-sm text-center border-collapse min-w-max">
                   <thead>
                     <tr>
@@ -94,7 +95,7 @@ export default function FareChartPage() {
                         >
                           <div className="flex flex-col items-center gap-1">
                             <span className="text-muted-foreground text-[10px] uppercase">
-                              {colStop.distance} KM
+                              {formatNumber(colStop.distance, locale)} KM
                             </span>
                             <span>
                               {locale === "en"
@@ -117,7 +118,7 @@ export default function FareChartPage() {
                                 : rowStop.name.bn}
                             </span>
                             <span className="text-muted-foreground text-xs">
-                              {rowStop.distance}
+                              {formatNumber(rowStop.distance, locale)}
                             </span>
                           </div>
                         </td>
@@ -143,7 +144,7 @@ export default function FareChartPage() {
                               key={colIdx}
                               className="p-3 border-b border-r text-foreground"
                             >
-                              ৳{fare}
+                              ৳{formatNumber(fare, locale)}
                             </td>
                           );
                         })}

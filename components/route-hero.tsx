@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { Route } from "@/types";
 import { useTranslations, useLocale } from "next-intl";
+import { formatNumber } from "@/lib/utils";
 
 interface RouteHeroProps {
   route: Route;
@@ -60,7 +61,7 @@ export default function RouteHero({ route }: RouteHeroProps) {
           <span className="flex items-center gap-1.5">
             <RouteIcon className="h-3.5 w-3.5" />
             <strong className="text-primary-foreground">
-              {route.stops.length}
+              {formatNumber(route.stops.length, locale)}
             </strong>{" "}
             {t("stops")}
           </span>
@@ -68,7 +69,7 @@ export default function RouteHero({ route }: RouteHeroProps) {
           <span className="flex items-center gap-1.5">
             <MapPin className="h-3.5 w-3.5" />
             <strong className="text-primary-foreground">
-              {totalDistance} {t("km")}
+              {formatNumber(totalDistance, locale)} {t("km")}
             </strong>
           </span>
           <span className="text-primary-foreground/40">·</span>

@@ -20,6 +20,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { getFareBetweenStops, calculateFare } from "@/lib/busData";
+import { formatNumber } from "@/lib/utils";
 import type { Route } from "@/types";
 import { useTranslations, useLocale } from "next-intl";
 import { useStore } from "@/hooks/store";
@@ -70,7 +71,7 @@ export default function FareCalculator({ route }: FareCalculatorProps) {
                   <SelectItem key={idx} value={String(idx)}>
                     {locale === "en" ? stop.name.en : stop.name.bn}
                     <span className="ml-2 text-muted-foreground text-xs">
-                      {stop.distance} {t("km")}
+                      {formatNumber(stop.distance, locale)} {t("km")}
                     </span>
                   </SelectItem>
                 ))}
@@ -99,7 +100,7 @@ export default function FareCalculator({ route }: FareCalculatorProps) {
                   <SelectItem key={idx} value={String(idx)}>
                     {locale === "en" ? stop.name.en : stop.name.bn}
                     <span className="ml-2 text-muted-foreground text-xs">
-                      {stop.distance} {t("km")}
+                      {formatNumber(stop.distance, locale)} {t("km")}
                     </span>
                   </SelectItem>
                 ))}
@@ -125,12 +126,13 @@ export default function FareCalculator({ route }: FareCalculatorProps) {
                 </p>
                 <div className="flex items-baseline justify-center gap-1">
                   <span className="text-3xl font-extrabold text-primary">
-                    ৳{fare}
+                    ৳{formatNumber(fare, locale)}
                   </span>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {distance} {t("km")} · ৳{settings.farePerKm}/{t("km")} · min ৳
-                  {settings.minFare}
+                  {formatNumber(distance!, locale)} {t("km")} · ৳
+                  {formatNumber(settings.farePerKm, locale)}/{t("km")} · min ৳
+                  {formatNumber(settings.minFare, locale)}
                 </p>
               </motion.div>
             ) : (
@@ -151,8 +153,8 @@ export default function FareCalculator({ route }: FareCalculatorProps) {
 
           <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
             {t("ratesNote", {
-              rate: settings.farePerKm,
-              minFare: settings.minFare,
+              rate: formatNumber(settings.farePerKm, locale),
+              minFare: formatNumber(settings.minFare, locale),
             })}
             <br />
             {t("actualNote")}
@@ -177,7 +179,7 @@ export default function FareCalculator({ route }: FareCalculatorProps) {
                 </span>
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="text-xs text-muted-foreground">
-                    {stop.distance} {t("km")}
+                    {formatNumber(stop.distance, locale)} {t("km")}
                   </span>
                   {idx === 0 ? (
                     <Badge variant="secondary" className="text-xs">
@@ -185,7 +187,7 @@ export default function FareCalculator({ route }: FareCalculatorProps) {
                     </Badge>
                   ) : (
                     <Badge className="text-xs font-bold">
-                      ৳{calculateFare(stop.distance)}
+                      ৳{formatNumber(calculateFare(stop.distance), locale)}
                     </Badge>
                   )}
                 </div>

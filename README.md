@@ -2,7 +2,7 @@
 
 Browse official bus routes across the Dhaka Metro Area, view stops, distances, and get instant fare estimates based on actual kilometer distances.
 
-## 🌟 Features
+## Features
 
 - **Comprehensive Routes**: Database of hundreds of official and unofficial bus routes operating in Dhaka.
 - **Fare Calculator**: Calculate estimated fares between any two stops instantly.
@@ -12,7 +12,7 @@ Browse official bus routes across the Dhaka Metro Area, view stops, distances, a
 - **Fast Search**: Quickly search through routes by code, origin, or destination.
 - **Responsive Design**: Modern, fast, and smooth interface for both desktop and mobile devices.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
 - **Library**: [React 19](https://react.dev/)
@@ -23,7 +23,7 @@ Browse official bus routes across the Dhaka Metro Area, view stops, distances, a
 - **Internationalization**: [next-intl](https://next-intl-docs.vercel.app/)
 - **Icons**: [Lucide React](https://lucide.dev/)
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -64,7 +64,7 @@ Make sure you have Node.js installed (v18 or higher recommended).
 
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. The application will automatically route you to your preferred locale (e.g., `/en` or `/bn`).
 
-## 📁 Project Structure
+## Project Structure
 
 - `app/`: Next.js App Router pages and layouts, including `[locale]/` for language-specific routing.
 - `components/`: Modular and reusable React components.
@@ -73,7 +73,7 @@ Make sure you have Node.js installed (v18 or higher recommended).
 - `lib/`, `hooks/`, `types/`: Utilities, custom React hooks, and TypeScript type definitions.
 - `i18n/`: Internal setup and configuration for internationalization routing.
 
-## 🤝 Contributing
+## Contributing
 
 This project is an open-source initiative to make public transit information accessible and structured for everyone in Dhaka.
 Contributions are welcome! If you find incorrect route data, missing stops, or want to improve the application:
@@ -84,6 +84,14 @@ Contributions are welcome! If you find incorrect route data, missing stops, or w
 4. Push to the branch (`git push origin feature/AmazingFeature`).
 5. Open a Pull Request.
 
-## 📄 License
+## Acknowledgements
+
+The transit data utilized in this application is sourced from the [Dhaka Metro Area Bus Fare List](https://github.com/imamhossain94/dhaka-metro-area-bus-fare-list) repository, originally compiled and maintained by [imamhossain94](https://github.com/imamhossain94). We extend our gratitude for their extensive effort in digitizing and structuring the official route and distance information, which serves as the foundational dataset for this project.
+
+## License
 
 This project is open-source and available under the terms of the MIT License.
+
+## Developed By
+
+Designed and engineered by **[Hussain Ahmed](https://github.com/hussain-ahmed2)**.

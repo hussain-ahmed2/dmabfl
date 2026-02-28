@@ -9,7 +9,12 @@
     "totalStops": "Unique Stops",
     "minFareLabel": "Min Fare",
     "minFare": "৳10+",
-    "noRoutes": "No routes found. Try a different search."
+    "noRoutes": "No routes found. Try a different search.",
+    "noRoutesAdvice": "Try searching by route code like \"A-101\" or a stop like \"Mirpur-10\"",
+    "showingAll": "Showing all",
+    "routes": "routes",
+    "resultsFoundCount": "result{count, plural, =1 {} other {s}} for \"{query}\"",
+    "browseAll": "Browse all"
   },
   "Navbar": {
     "brandTitle": "Dhaka Bus",
@@ -96,6 +101,22 @@
     "viewChart": "View Chart",
     "km": "km",
     "upTo": "up to ৳{maxFare}",
-    "searchStops": "Search stops..."
+    "searchStops": "Search stops...",
+    "timelineTab": "Timeline",
+    "chartTab": "Fare Chart"
+  },
+  "Footer": {
+    "brandTitle": "Dhaka Bus",
+    "description": "Making public transit information accessible and structured for everyone in the Dhaka Metro Area.",
+    "navTitle": "Navigate",
+    "navRoutes": "Routes",
+    "navCalculator": "Fare Calculator",
+    "navChart": "Fare Chart",
+    "navAbout": "About Project",
+    "otherTitle": "Resources",
+    "dataSource": "Data Source",
+    "builtBy": "Engineered By",
+    "tagline": "Built for Dhaka",
+    "allRightsReserved": "All rights reserved."
   }
 }

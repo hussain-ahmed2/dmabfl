@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { Route } from "@/types";
 import { routeToSlug, calculateFare } from "@/lib/busData";
 import { useTranslations, useLocale } from "next-intl";
+import { formatNumber } from "@/lib/utils";
 
 interface RouteCardProps {
   route: Route;
@@ -27,8 +28,11 @@ export default function RouteCard({ route }: RouteCardProps) {
   const maxFare = calculateFare(totalDistance);
 
   return (
-    <Link href={`/routes/${slug}`} className="group block focus:outline-none">
-      <Card className="h-full transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg group-hover:border-primary/30 group-focus-visible:ring-2 group-focus-visible:ring-primary">
+    <Link
+      href={`/routes/${slug}`}
+      className="group focus:outline-none flex flex-col flex-1"
+    >
+      <Card className="h-full transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg group-hover:border-primary/30 group-focus-visible:ring-2 group-focus-visible:ring-primary flex flex-col">
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between gap-2">
             <Badge
@@ -44,7 +48,7 @@ export default function RouteCard({ route }: RouteCardProps) {
           </p>
         </CardHeader>
 
-        <CardContent className="pt-0 space-y-3">
+        <CardContent className="pt-0 space-y-3 flex-1 flex flex-col justify-end">
           {/* Route endpoints */}
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -63,20 +67,20 @@ export default function RouteCard({ route }: RouteCardProps) {
             <div className="flex items-center gap-3 text-xs text-muted-foreground">
               <span>
                 <span className="font-semibold text-foreground">
-                  {route.stops.length}
+                  {formatNumber(route.stops.length, locale)}
                 </span>{" "}
                 {t("stops")}
               </span>
               <span>·</span>
               <span>
                 <span className="font-semibold text-foreground">
-                  {totalDistance}
+                  {formatNumber(totalDistance, locale)}
                 </span>{" "}
                 {t("km")}
               </span>
             </div>
             <span className="text-xs font-semibold text-primary">
-              {t("upTo", { maxFare })}
+              {t("upTo", { maxFare: formatNumber(maxFare, locale) })}
             </span>
           </div>
         </CardContent>
