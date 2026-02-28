@@ -16,26 +16,35 @@ export default function AdUnit({
   slot = "2430405252",
   format = "auto",
   responsive = "true",
-  style = { display: "block", minHeight: "100px" },
+  style = { display: "block", minHeight: "100px", width: "100%" },
 }: AdUnitProps) {
   const pathname = usePathname();
+  const adRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Only proceed in production if desired to avoid console noise on localhost
-    // if (process.env.NODE_ENV !== "production") return;
+    // We use a small timeout to wait for the browser to finish calculating the layout.
+    // This solves the "No slot size for availableWidth=0" error in Next.js/SPAs.
+    const timeout = setTimeout(() => {
+      try {
+        if (adRef.current && adRef.current.offsetWidth > 0) {
+          // @ts-ignore
+          const adsbygoogle = window.adsbygoogle || [];
+          adsbygoogle.push({});
+        }
+      } catch (err) {
+        console.warn("AdSense push failed:", err);
+      }
+    }, 200); // 200ms is a safe buffer for most layout shifts
 
-    try {
-      // @ts-ignore
-      const adsbygoogle = window.adsbygoogle || [];
-      adsbygoogle.push({});
-    } catch (err) {
-      // These errors are common when navigating/resizing but usually don't break functionality
-      console.warn("AdSense push failed:", err);
-    }
+    return () => clearTimeout(timeout);
   }, [pathname]); // Refresh ads on route change
 
   return (
-    <div className={`ad-container w-full overflow-hidden ${className}`}>
+    <div
+      ref={adRef}
+      className={`ad-container w-full overflow-hidden flex justify-center ${className}`}
+      style={{ minWidth: "250px" }}
+    >
       <ins
         key={`adsense-${pathname}-${slot}`} // Force a fresh component on navigation
         className="adsbygoogle"
