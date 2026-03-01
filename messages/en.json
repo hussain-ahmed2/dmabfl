@@ -3,7 +3,7 @@
     "title": "Find Your Bus Route &",
     "titleHighlight": "Calculate Fares",
     "subtitle": "Browse {totalRoutes} official bus routes across Dhaka Metro Area. View stops, distances, and get instant fare estimates.",
-    "routesBadge": "🚌 Dhaka Metro Area",
+    "routesBadge": "Dhaka Metro Area",
     "searchPlaceholder": "Search routes by code or origin/destination...",
     "totalRoutes": "Routes",
     "totalStops": "Unique Stops",
@@ -27,7 +27,7 @@
     "navMobileChart": "Chart"
   },
   "Calculator": {
-    "badge": "🧮 Fare Calculator",
+    "badge": "Fare Calculator",
     "title": "Calculate Your Bus Fare",
     "subtitle": "Find direct routes between any two stops and get instant fare estimates.",
     "journeyDetails": "Journey Details",
@@ -47,7 +47,7 @@
     "resultsWillAppear": "Results will appear here once you calculate your fare."
   },
   "RouteCalc": {
-    "title": "🧮 Fare Calculator",
+    "title": "Fare Calculator",
     "desc": "Select boarding and alighting stops to estimate fare.",
     "from": "From",
     "to": "To",
@@ -59,7 +59,9 @@
     "actualNote": "Actual fares may vary.",
     "fareFromFirst": "Fare from First Stop",
     "start": "Start",
-    "km": "km"
+    "km": "km",
+    "tripSummary": "Trip Path Summary",
+    "stops": "Stops"
   },
   "Settings": {
     "dialogTitle": "Fare Configuration",
@@ -72,11 +74,14 @@
     "save": "Save Settings"
   },
   "Chart": {
-    "badge": "📊 Fare Chart",
+    "badge": "Fare Chart",
     "title": "Full Route Fare Chart",
     "subtitle": "View the complete fare matrix for all stops on a selected route.",
     "selectRoute": "Select Route for Chart",
-    "chooseRouteDesc": "Choose a route to see the fare between every combination of stops."
+    "chooseRouteDesc": "Choose a route to see the fare between every combination of stops.",
+    "tripSummary": "Trip Path Summary",
+    "stops": "Stops",
+    "km": "KM"
   },
   "About": {
     "title": "About This Project",

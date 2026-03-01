@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Ticket, ArrowUpDown, ChevronRight } from "lucide-react";
+import { Ticket, ArrowUpDown, ChevronRight, Calculator } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -147,6 +147,7 @@ export default function FareCalculatorPage() {
         <div className="relative container mx-auto text-center space-y-4">
           <div className="flex items-center justify-center gap-4 mb-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur-sm">
+              <Calculator className="h-3.5 w-3.5" />
               {t("badge")}
             </div>
           </div>

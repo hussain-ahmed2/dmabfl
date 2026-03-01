@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { formatNumber } from "@/lib/utils";
 import AdBlock from "@/components/ad-block";
+import { Bus } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Bus Routes",
@@ -31,6 +32,7 @@ export default async function HomePage() {
 
         <div className="relative mx-auto max-w-3xl text-center space-y-5">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest backdrop-blur-sm">
+            <Bus className="h-3.5 w-3.5" />
             {t("routesBadge")}
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
@@ -61,9 +63,9 @@ export default async function HomePage() {
       </section>
 
       {/* Ad Unit after hero */}
-      <div className="container mx-auto px-4 sm:px-6 pt-3">
+      {/* <div className="container mx-auto px-4 sm:px-6 pt-3">
         <AdBlock className="bg-muted/30 rounded-lg overflow-hidden min-h-[100px] flex items-center justify-center" />
-      </div>
+      </div> */}
 
       <Separator />
 
@@ -73,12 +75,12 @@ export default async function HomePage() {
       </section>
 
       {/* Multiplex Ad at bottom */}
-      <section className="container mx-auto px-4 sm:px-6 pb-20">
+      {/* <section className="container mx-auto px-4 sm:px-6 pb-20">
         <AdBlock
           variant="multiplex"
           className="rounded-xl overflow-hidden border border-border/50 bg-muted/5 p-4"
         />
-      </section>
+      </section> */}
     </main>
   );
 }

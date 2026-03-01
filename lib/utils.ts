@@ -9,10 +9,10 @@ export function formatNumber(
   num: number | string,
   locale: string = "en",
 ): string {
-  if (locale === "en") return num.toString();
   const numObj = typeof num === "string" ? parseFloat(num) : num;
   if (isNaN(numObj)) return num.toString();
-  return new Intl.NumberFormat("bn-BD", {
+  
+  return new Intl.NumberFormat(locale === "bn" ? "bn-BD" : "en-US", {
     useGrouping: false,
     maximumFractionDigits: 1,
   }).format(numObj);

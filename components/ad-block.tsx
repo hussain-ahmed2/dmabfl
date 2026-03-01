@@ -23,8 +23,9 @@ export default function AdBlock({
   className?: string;
   variant?: "display" | "multiplex";
 }) {
-  if (variant === "multiplex") {
-    return <MultiplexComponent className={className} />;
-  }
-  return <AdUnitComponent className={className} />;
+  return null;
+  // if (variant === "multiplex") {
+  //   return <MultiplexComponent className={className} />;
+  // }
+  // return <AdUnitComponent className={className} />;
 }

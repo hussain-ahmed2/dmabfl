@@ -3,20 +3,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Route } from "@/types";
 import { cn, formatNumber } from "@/lib/utils";
-import { Map } from "lucide-react";
+import { Map, ArrowDown } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
+import { useState } from "react";
 import { useFareSettings } from "@/hooks/use-fare-settings";
 
 interface StopTimelineProps {
   route: Route;
+  onSelectRange?: (start: number, end: number) => void;
+  selectedRange?: { start: number; end: number } | null;
 }
 
-export default function StopTimeline({ route }: StopTimelineProps) {
+export default function StopTimeline({
+  route,
+  onSelectRange,
+  selectedRange,
+}: StopTimelineProps) {
   const stops = route.stops;
   const tRoute = useTranslations("Route");
   const tChart = useTranslations("Chart");
   const locale = useLocale();
   const { calcFare, loaded } = useFareSettings();
+  const [hoveredCell, setHoveredCell] = useState<{
+    row: number;
+    col: number;
+  } | null>(null);
 
   return (
     <Card>
@@ -108,68 +119,186 @@ export default function StopTimeline({ route }: StopTimelineProps) {
 
           <TabsContent value="chart" className="mt-0">
             {loaded ? (
-              <div className="w-full overflow-x-auto border-t border-b bg-card text-card-foreground">
+              <div
+                className="w-full overflow-x-auto border-t border-b bg-card text-card-foreground select-none"
+                onMouseLeave={() => setHoveredCell(null)}
+              >
                 <table className="w-full text-xs text-center border-collapse min-w-max">
                   <thead>
-                    <tr>
-                      <th className="p-2 border-b border-r bg-muted/50 text-left sticky left-0 z-20 shadow-[1px_0_0_0_var(--border)] text-[10px] uppercase font-bold text-muted-foreground">
-                        KM / {tChart("badge")}
+                    <tr className="sticky top-0 z-20">
+                      <th className="p-1.5 sm:p-2.5 border-b border-r bg-muted sticky left-0 top-0 z-50 shadow-[1px_0_0_0_var(--border)] w-[80px] sm:w-auto">
+                        <div className="flex flex-col gap-0.5">
+                          <span className="text-[8px] sm:text-[10px] font-bold text-primary uppercase">
+                            {tChart("stops")}
+                          </span>
+                          <span className="text-[7px] sm:text-[8px] text-muted-foreground uppercase leading-none">
+                            {tChart("km")}
+                          </span>
+                        </div>
                       </th>
-                      {stops.map((colStop, colIdx) => (
-                        <th
-                          key={colIdx}
-                          className="px-2 py-1.5 border-b border-r bg-muted/50 font-medium whitespace-nowrap"
-                        >
-                          <div className="flex flex-col items-center gap-0.5">
-                            <span className="text-muted-foreground text-[9px] uppercase font-bold tracking-widest">
-                              {formatNumber(colStop.distance, locale)}
-                            </span>
-                            <span className="text-[10px] max-w-[60px] truncate block">
-                              {locale === "en"
-                                ? colStop.name.en
-                                : colStop.name.bn}
-                            </span>
-                          </div>
-                        </th>
-                      ))}
+                      {stops.map((colStop, colIdx) => {
+                        const isHovered = hoveredCell?.col === colIdx;
+                        const isSelected =
+                          selectedRange &&
+                          colIdx >= selectedRange.start &&
+                          colIdx <= selectedRange.end;
+
+                        return (
+                          <th
+                            key={colIdx}
+                            className={cn(
+                              "px-2 py-1.5 border-b border-r font-medium whitespace-nowrap bg-muted transition-colors",
+                              isHovered ? "bg-primary/10" : "bg-muted",
+                              isSelected && "bg-primary/20 text-primary",
+                            )}
+                          >
+                            <div className="flex flex-col items-center gap-0.5">
+                              <span className="text-muted-foreground text-[8px] sm:text-[10px] uppercase font-bold tracking-widest">
+                                {formatNumber(colStop.distance, locale)}
+                              </span>
+                              <span className="text-[9px] sm:text-[11px] leading-tight max-w-[60px] truncate block">
+                                {locale === "en"
+                                  ? colStop.name.en
+                                  : colStop.name.bn}
+                              </span>
+                            </div>
+                          </th>
+                        );
+                      })}
                     </tr>
                   </thead>
                   <tbody>
                     {stops.map((rowStop, rowIdx) => (
-                      <tr key={rowIdx} className="hover:bg-muted/30">
-                        <td className="p-2 border-b border-r font-semibold bg-background sticky left-0 z-10 shadow-[1px_0_0_0_var(--border)] whitespace-nowrap text-left text-[11px]">
-                          <div className="flex justify-between items-center gap-3">
-                            <span className="truncate max-w-[120px]">
+                      <tr key={rowIdx} className="group">
+                        <td
+                          className={cn(
+                            "p-2 border-b border-r font-semibold sticky left-0 z-40 shadow-[1px_0_0_0_var(--border)] whitespace-nowrap text-left transition-colors duration-200 w-[80px] sm:w-auto",
+                            hoveredCell?.row === rowIdx
+                              ? "bg-muted"
+                              : "bg-card",
+                            selectedRange &&
+                              rowIdx >= selectedRange.start &&
+                              rowIdx <= selectedRange.end &&
+                              "bg-accent text-primary",
+                          )}
+                        >
+                          <div className="flex flex-col gap-0.5 px-0.5 overflow-hidden">
+                            <span className="text-[8px] sm:text-[11px] truncate max-w-full">
                               {locale === "en"
                                 ? rowStop.name.en
                                 : rowStop.name.bn}
                             </span>
-                            <span className="text-muted-foreground text-[9px] font-bold tracking-widest bg-muted/30 px-1 rounded-sm">
-                              {formatNumber(rowStop.distance, locale)}
+                            <span className="text-muted-foreground/50 text-[6px] sm:text-[8px] font-mono leading-none">
+                              {formatNumber(rowStop.distance, locale)}{" "}
+                              {tChart("km")}
                             </span>
                           </div>
                         </td>
                         {stops.map((colStop, colIdx) => {
-                          if (rowIdx === colIdx) {
+                          const isDiagonal = rowIdx === colIdx;
+                          const isAboveDiagonal = colIdx > rowIdx;
+                          const isHovered =
+                            hoveredCell?.row === rowIdx ||
+                            hoveredCell?.col === colIdx;
+                          const isCellHovered =
+                            hoveredCell?.row === rowIdx &&
+                            hoveredCell?.col === colIdx;
+
+                          // Selection logic
+                          const isInRange =
+                            selectedRange &&
+                            rowIdx >= selectedRange.start &&
+                            rowIdx <= selectedRange.end &&
+                            colIdx >= selectedRange.start &&
+                            colIdx <= selectedRange.end;
+
+                          if (isAboveDiagonal) {
                             return (
                               <td
                                 key={colIdx}
-                                className="p-2 border-b border-r bg-muted/20 font-bold text-muted-foreground/30 text-[10px]"
+                                className={cn(
+                                  "p-3 border-b border-r transition-colors",
+                                  isHovered ? "bg-muted/10" : "bg-muted/5",
+                                )}
+                              />
+                            );
+                          }
+
+                          if (isDiagonal) {
+                            const isPartOfRoute =
+                              selectedRange &&
+                              rowIdx >= selectedRange.start &&
+                              rowIdx <= selectedRange.end;
+
+                            return (
+                              <td
+                                key={colIdx}
+                                className={cn(
+                                  "p-2 border-b border-r transition-all duration-300 relative",
+                                  isPartOfRoute
+                                    ? "bg-primary/20"
+                                    : "bg-muted/20",
+                                  isCellHovered && "bg-primary/30",
+                                )}
+                                onMouseEnter={() =>
+                                  setHoveredCell({ row: rowIdx, col: colIdx })
+                                }
                               >
-                                —
+                                <div className="flex flex-col items-center gap-0.5 relative z-0">
+                                  <span className="text-[7px] sm:text-[9px] uppercase tracking-wide text-muted-foreground font-medium">
+                                    {formatNumber(rowStop.distance, locale)} KM
+                                  </span>
+                                  <span className="text-[8px] sm:text-[10px] uppercase tracking-tighter text-foreground font-semibold leading-tight">
+                                    {locale === "en"
+                                      ? rowStop.name.en
+                                      : rowStop.name.bn}
+                                  </span>
+                                </div>
+                                {isPartOfRoute && (
+                                  <div className="absolute inset-x-0 bottom-0.5 sm:bottom-1 flex justify-center">
+                                    <ArrowDown className="h-2 w-2 sm:h-3 sm:w-3 text-primary animate-bounce shrink-0" />
+                                  </div>
+                                )}
                               </td>
                             );
                           }
+
                           const distance = Math.abs(
                             rowStop.distance - colStop.distance,
                           );
                           const fare = calcFare(distance);
+                          const isIntersection =
+                            selectedRange?.end === rowIdx &&
+                            selectedRange?.start === colIdx;
+
                           return (
                             <td
                               key={colIdx}
-                              className="px-1.5 py-2 border-b border-r text-foreground text-[11px]"
+                              onMouseEnter={() =>
+                                setHoveredCell({ row: rowIdx, col: colIdx })
+                              }
+                              onClick={() =>
+                                onSelectRange && onSelectRange(colIdx, rowIdx)
+                              }
+                              className={cn(
+                                "p-2 sm:p-3 border-b border-r text-foreground cursor-pointer transition-all duration-200 relative",
+                                isHovered ? "bg-primary/5" : "bg-card",
+                                isCellHovered &&
+                                  "bg-primary/10 scale-[1.02] z-10 shadow-sm",
+                                isInRange && "bg-primary/5",
+                                isIntersection &&
+                                  "bg-primary/20 ring-2 ring-primary/40 z-20 font-bold",
+                              )}
                             >
-                              ৳{formatNumber(fare, locale)}
+                              <span
+                                className={cn(
+                                  "transition-transform text-[11px]",
+                                  isCellHovered &&
+                                    "scale-110 inline-block font-bold text-primary",
+                                )}
+                              >
+                                ৳{formatNumber(fare, locale)}
+                              </span>
                             </td>
                           );
                         })}
