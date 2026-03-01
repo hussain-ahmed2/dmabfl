@@ -43,12 +43,12 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        {/* <meta name="google-adsense-account" content="ca-pub-3448314338744263" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3448314338744263"
-          crossOrigin="anonymous"
-        /> */}
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Dhaka Bus" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#0f172a" />
+        <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body
         className={cn(
