@@ -1,4 +1,8 @@
 {
+  "Metadata": {
+    "title": "Dhaka Bus - Fare & Routes",
+    "description": "Find bus routes and calculate fares in Dhaka Metro Area."
+  },
   "Home": {
     "title": "Find Your Bus Route &",
     "titleHighlight": "Calculate Fares",

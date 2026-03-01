@@ -1,9 +1,12 @@
-import type { Metadata } from "next";
 import { Inter, Noto_Sans_Bengali } from "next/font/google";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  setRequestLocale,
+  getTranslations,
+} from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -19,10 +22,27 @@ const fontBengali = Noto_Sans_Bengali({
   subsets: ["bengali"],
 });
 
-export const metadata: Metadata = {
-  title: "Dhaka Metro Bus Fare",
-  description: "Find your bus route and fare in Dhaka city.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    icons: {
+      icon: [
+        { url: "/logo.png" },
+        { url: "/logo.png", sizes: "192x192", type: "image/png" },
+        { url: "/logo.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: { url: "/logo.png" },
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
@@ -48,7 +68,6 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Dhaka Bus" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#0f172a" />
-        <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body
         className={cn(

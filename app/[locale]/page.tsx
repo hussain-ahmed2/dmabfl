@@ -7,12 +7,6 @@ import { formatNumber } from "@/lib/utils";
 import AdBlock from "@/components/ad-block";
 import { Bus } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Bus Routes",
-  description:
-    "Browse all Dhaka Metro Area bus routes, stops, distances and fares.",
-};
-
 export default async function HomePage() {
   const routes = getAllRoutes();
   const totalRoutes = routes.length;
